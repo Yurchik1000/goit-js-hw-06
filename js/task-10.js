@@ -1,21 +1,27 @@
 
-const input = document.querySelector(
- "#controls input"
+const input = document.querySelector("input");
+const createBtn = document.querySelector("[data-create]");
+const destroyBtn = document.querySelector("[data-destroy]");
+const boxesContainer = document.querySelector("#boxes");
+// console.log(inputStep);
+
+createBtn.addEventListener("click", () => {
+ const amount = input.value;
+ createBoxes(amount);
+});
+
+destroyBtn.addEventListener(
+ "click",
+ destroyBoxes
 );
-const createBtn = document.querySelector(
- "[data-create]"
-);
-const destroyBtn = document.querySelector(
- "[data-destroy]"
-);
-const boxesContainer =
- document.querySelector("#boxes");
 
 function createBoxes(amount) {
  const boxes = [];
- let boxSize = 30;
+  let boxSize = 30;
+const step = input.getAttribute("step");
+  
 
- for (let i = 0; i < amount; i += 1) {
+ for (let i = 0; i < amount; i += Number(step) {
   const box = document.createElement("div");
   box.style.width = `${boxSize}px`;
   box.style.height = `${boxSize}px`;
@@ -29,22 +35,8 @@ function createBoxes(amount) {
 
 function destroyBoxes() {
  boxesContainer.innerHTML = "";
+ input.value = "";
 }
-
-createBtn.addEventListener("click", () => {
- const amount = input.value;
- createBoxes(amount);
-});
-
-destroyBtn.addEventListener(
- "click",
- destroyBoxes
-);
-
-
-
-
-
 
 function getRandomHexColor() {
   return `#${Math.floor(Math.random() * 16777215)
