@@ -3,7 +3,7 @@ const input = document.querySelector("input");
 const createBtn = document.querySelector("[data-create]");
 const destroyBtn = document.querySelector("[data-destroy]");
 const boxesContainer = document.querySelector("#boxes");
-// console.log(inputStep);
+
 
 createBtn.addEventListener("click", () => {
  const amount = input.value;
@@ -15,20 +15,32 @@ destroyBtn.addEventListener(
  destroyBoxes
 );
 
+
 function createBoxes(amount) {
  const boxes = [];
   let boxSize = 30;
-const step = input.getAttribute("step");
+  const stepInput = Number(input.getAttribute("step"));
+  const minInput = Number(input.getAttribute('min'))
+  const maxInput = Number(input.getAttribute('max'))
+
+
+  if (amount > maxInput || amount < minInput) {
+    return
+  }
+  
+    for (let i = 0;i < amount; i += stepInput
+    ) {
+      const box = document.createElement("div");
+      box.style.width = `${boxSize}px`;
+      box.style.height = `${boxSize}px`;
+      box.style.backgroundColor =
+    getRandomHexColor();
+      boxes.push(box);
+      boxSize += 10;
+    }
   
 
- for (let i = 0; i < amount; i += Number(step) {
-  const box = document.createElement("div");
-  box.style.width = `${boxSize}px`;
-  box.style.height = `${boxSize}px`;
-  box.style.backgroundColor = getRandomHexColor();
-  boxes.push(box);
-  boxSize += 10;
- }
+
 
  boxesContainer.append(...boxes);
 }
